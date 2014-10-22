@@ -20,4 +20,18 @@
 
 		// 14697 North - ISLINGTON STATION
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
+
+
+	function parseXML(url){
+		var xml = getNextBus(route),
+			xmlDoc = $.parseXML(xml),
+			xmlParsed = $( xmlDoc);
+
+			console.log(xmlParsed.find('prediction'));
+
+	}
+
+	function getNextBus(stopId){
+
+	}
 })();
