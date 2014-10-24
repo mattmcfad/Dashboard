@@ -5,6 +5,11 @@
 			e.preventDefault();
 			getWeather();
 		});
+
+		$("#get-ttc").on("click", function(e){
+			e.preventDefault();
+			ttc.getXml(14697, 37); // 37 North 
+		});
 	}
 
 	function getWeather(){

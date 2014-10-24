@@ -1,4 +1,4 @@
-(function(){
+var ttc = {
 
 	// Route List
 	// http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc
@@ -22,7 +22,7 @@
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
 
-	function parseXML(xmlData){
+	parseXml: function(xmlData){
 		var oSerializer = new XMLSerializer(),
 		    sXML = oSerializer.serializeToString(xmlData),
 		    xml = $(sXML)[2],
@@ -39,9 +39,9 @@
 		});
 		
 
-	}
+	},
 
-	function getXml(stopId, routeId){
+	getXml : function(stopId, routeId){
 		$.ajax({
 			url : "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
 			+ stopId 
@@ -49,11 +49,11 @@
 			+ routeId,
 			dataType : "xml",
 			success : function(data){
-				parseXML(data);				
+				ttc.parseXml(data);				
 			}
 		});
 	}
 
-	getXml(14697, 37); // 37 North 
+	// getXml(14697, 37); // 37 North 
 
-})();
+};
