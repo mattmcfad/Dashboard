@@ -23,11 +23,21 @@
 
 
 	function parseXML(xmlData){
-		var oSerializer = new XMLSerializer();
-		var sXML = oSerializer.serializeToString(xmlData);
-		var xml = $(sXML)[2];
-		console.log(xml)
-		$(".ttc > article").text(xml.toString());
+		var oSerializer = new XMLSerializer(),
+		    sXML = oSerializer.serializeToString(xmlData),
+		    xml = $(sXML)[2],
+		    article = $(".ttc > article");
+
+		$(xml).find("prediction").each(function(){
+			var that = $(this),
+				text = ("Branch: " + that.attr("branch")
+				      + " minutes: " + that.attr("minutes")
+				      + " seconds: " + that.attr("seconds"));
+
+			article.append("<p>" + text + "</p>");
+			console.log(text);
+		});
+		
 
 	}
 
@@ -39,16 +49,9 @@
 			+ routeId,
 			dataType : "xml",
 			success : function(data){
-				//console.log($('prediction', data).eq(0).context.documentElement.innerHTML);
-				parseXML(data);
-				//console.log(data);
-				
+				parseXML(data);				
 			}
 		});
-	}
-
-	function getNextBus(stopId){
-
 	}
 
 	getXml(14697, 37); // 37 North 
