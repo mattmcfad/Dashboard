@@ -22,16 +22,35 @@
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
 
-	function parseXML(url){
-		var xml = getNextBus(route),
-			xmlDoc = $.parseXML(xml),
-			xmlParsed = $( xmlDoc);
+	function parseXML(xmlData){
+		var oSerializer = new XMLSerializer();
+		var sXML = oSerializer.serializeToString(xmlData);
+		var xml = $(sXML)[2];
+		console.log(xml)
+		$(".ttc > article").text(xml.toString());
 
-			console.log(xmlParsed.find('prediction'));
+	}
 
+	function getXml(stopId, routeId){
+		$.ajax({
+			url : "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
+			+ stopId 
+			+ "&routeTag=" 
+			+ routeId,
+			dataType : "xml",
+			success : function(data){
+				//console.log($('prediction', data).eq(0).context.documentElement.innerHTML);
+				parseXML(data);
+				//console.log(data);
+				
+			}
+		});
 	}
 
 	function getNextBus(stopId){
 
 	}
+
+	getXml(14697, 37); // 37 North 
+
 })();
