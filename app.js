@@ -1,33 +1,22 @@
 (function(){
 
 	function eventListeners(){
+
+		// Weather
 		$("#get-weather").on("click", function(e){
 			e.preventDefault();
-			getWeather();
+			weather.getWeather();
 		});
 
-		$("#get-ttc").on("click", function(e){
+
+		// TTC
+		$(".buttons > button").on("click", function(e){
 			e.preventDefault();
-			ttc.getXml(14697, 37); // 37 North 
-		});
-	}
-
-	function getWeather(){
-		$.ajax({
-			url : "http://api.wunderground.com/api/"
-			+ keys.wunderground
-			+ "/forecast/q/Canada/Toronto.json",
-			dataType : "jsonp",
-			success : function(data){
-				printWeather(data);
-			}
-		});
-	}
-
-	function printWeather(data){
-		var list = $("#weather-details");
-		$.each(data.forecast.txt_forecast.forecastday, function(index, obj){
-			list.append("<li><h4>"+ obj.title+ "</h4>" + obj.fcttext_metric + "</li>");
+			var id = this.id.split("-"),
+				stopId = id[0],
+				routeId = id[1];
+				
+			ttc.getXml(stopId, routeId);
 		});
 	}
 

@@ -21,39 +21,50 @@ var ttc = {
 		// 14697 North - ISLINGTON STATION
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
-
 	parseXml: function(xmlData){
-		var oSerializer = new XMLSerializer(),
-		    sXML = oSerializer.serializeToString(xmlData),
-		    xml = $(sXML)[2],
-		    article = $(".ttc > article");
 
-		$(xml).find("prediction").each(function(){
+		var article = $(".ttc > article"),
+		 	obj = {};
+
+		$(xmlData).find("predictions").each(function(){
+
 			var that = $(this),
-				text = ("Branch: " + that.attr("branch")
-				      + " minutes: " + that.attr("minutes")
-				      + " seconds: " + that.attr("seconds"));
+				routeTitle = that.attr("routeTitle"),
+				stopTitle = that.attr("stopTitle");
 
-			article.append("<p>" + text + "</p>");
-			console.log(text);
+			obj.stop = stopTitle;
+			obj.route = routeTitle;
+		    obj.predictions = [];
+
+			that.find("prediction").each(function(){
+				var that = $(this),
+					prediction = {
+						minutes: that.attr("minutes"),
+						seconds: that.attr("seconds")
+					};
+				obj.predictions.push(prediction);
+			});
 		});
-		
 
+		article.html("<h3>" + obj.stop + "</h3>")
+			   .append("<h4>" + obj.route + "</h4>");
+
+		for (index in obj.predictions){
+				article.append("<p>"+ obj.predictions[index].minutes + " mins " + obj.predictions[index].seconds + " seconds </p>");
+		}
 	},
 
-	getXml : function(stopId, routeId){
+	getXml: function(stopId, routeId){
 		$.ajax({
 			url : "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
-			+ stopId 
-			+ "&routeTag=" 
-			+ routeId,
+				+ stopId 
+				+ "&routeTag=" 
+				+ routeId,
 			dataType : "xml",
 			success : function(data){
 				ttc.parseXml(data);				
 			}
 		});
 	}
-
-	// getXml(14697, 37); // 37 North 
 
 };
