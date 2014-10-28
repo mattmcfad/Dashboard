@@ -50,13 +50,14 @@ var ttc = {
 		article.html("<h3>" + obj.stop + "</h3>")
 			   .append("<h4>" + obj.route + "</h4>");
 
+
 		ttc.sortTimes(obj.predictions, function(array){
 			console.log(array);
+			for (index in array){
+					article.append("<p>"+ array[index].minutes + " mins " + array[index].seconds + " seconds </p>");
+			}
 		});
 
-		for (index in obj.predictions){
-				article.append("<p>"+ obj.predictions[index].minutes + " mins " + obj.predictions[index].seconds + " seconds </p>");
-		}
 	},
 
 	sortTimes: function(arr, callback){
