@@ -42,6 +42,7 @@ var ttc = {
 						minutes: that.attr("minutes"),
 						seconds: that.attr("seconds")
 					};
+
 				obj.predictions.push(prediction);
 			});
 		});
@@ -49,9 +50,21 @@ var ttc = {
 		article.html("<h3>" + obj.stop + "</h3>")
 			   .append("<h4>" + obj.route + "</h4>");
 
+		ttc.sortTimes(obj.predictions, function(array){
+			console.log(array);
+		});
+
 		for (index in obj.predictions){
 				article.append("<p>"+ obj.predictions[index].minutes + " mins " + obj.predictions[index].seconds + " seconds </p>");
 		}
+	},
+
+	sortTimes: function(arr, callback){
+		arr = arr.sort(function(a,b){
+			return a.minutes - b.minutes;
+		});
+
+		callback(arr);
 	},
 
 	getXml: function(stopId, routeId){
