@@ -1,5 +1,3 @@
-define( function() {
-
 	// Route List
 	// http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc
 
@@ -21,9 +19,12 @@ define( function() {
 		// 14697 North - ISLINGTON STATION
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
+
+define( ["global/utils"], function(utils) {
+
 	var ttcCtrl = {};	
 
-	 function parseXml (xmlData) {
+	 ttcCtrl.parseXml = function (xmlData) {
 
 		var article = $(".ttc > article"),
 		 	obj = {};
@@ -54,9 +55,11 @@ define( function() {
 
 
 		sortTimes(obj.predictions, function(array) {
-			console.log(array);
 			for (index in array) {
-					article.append("<p>"+ array[index].minutes + " mins " + array[index].seconds + " seconds </p>");
+				article.append("<p>"
+							 + array[index].minutes + " mins "
+							 + array[index].seconds + " seconds"
+							 + "</p>");
 			}
 		});
 
@@ -71,16 +74,13 @@ define( function() {
 	}
 
 	ttcCtrl.getXml = function (stopId, routeId) {
-		$.ajax({
-			url : "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
+
+		var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
 				+ stopId 
 				+ "&routeTag=" 
-				+ routeId,
-			dataType : "xml",
-			success : function(data) {
-				parseXml(data);				
-			}
-		});
+				+ routeId;
+
+		utils.ajax(url, "xml", ttcCtrl.parseXml);
 	}
 
 	ttcCtrl.init = function (){
@@ -95,5 +95,4 @@ define( function() {
 	}
 
 	return ttcCtrl;
-
 });

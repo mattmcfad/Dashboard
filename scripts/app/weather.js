@@ -1,22 +1,18 @@
-define(["app/apiKeys"], function(keys) {
+define(["app/apiKeys", "global/utils"], function(keys, utils) {
 
 	weatherCtrl = {};
 
 	weatherCtrl.getWeather = function() {
 
-		
-		$.ajax({
-			url : "http://api.wunderground.com/api/"
+		var url = "http://api.wunderground.com/api/"
 				+ keys.getKey("wunderground")
-				+ "/forecast/q/Canada/Toronto.json",
-			dataType : "jsonp",
-			success : function(data) {
-				printWeather(data);
-			}
-		});
+				+ "/forecast/q/Canada/Toronto.json";
+
+		utils.ajax(url, "jsonp", weatherCtrl.printWeather);
+
 	}
 
-	function printWeather(data) {
+	weatherCtrl.printWeather = function(data) {
 		var list = $("#weather-details")
 		console.log(data);
 		$.each(data.forecast.txt_forecast.forecastday, function(index, obj) {
