@@ -1,6 +1,8 @@
 define(function() {
 	utils = {};
 
+	console.log("utils loaded");
+
 	utils.ajax = function(url, type, callback) {
 
 		$.ajax({

@@ -20,7 +20,7 @@
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
 
-define( ["global/utils"], function(utils) {
+define( function() {
 
 	var ttcCtrl = {};	
 
