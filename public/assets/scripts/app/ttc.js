@@ -22,11 +22,10 @@
 
 define( function() {
 
-	var ttcCtrl = {};	
+	var ttcCtrl = {};
 
 	 ttcCtrl.parseXml = function (xmlData) {
-
-		var article = $(".ttc > article"),
+		var article = $(".ttc article"),
 		 	obj = {};
 
 		$(xmlData).find("predictions").each(function() {
