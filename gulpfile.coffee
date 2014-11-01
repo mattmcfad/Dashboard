@@ -12,6 +12,7 @@ watch   	   = require 'gulp-watch'
 
 param        = require './config/parameters.coffee'
 
+
 ## ------------------
 ## ----  BUILD  -----
 ## ------------------
@@ -21,6 +22,7 @@ param        = require './config/parameters.coffee'
 gulp.task 'scripts', ->
   gulp.src param.js_folder
   .pipe jshint()
+  .pipe jshint.reporter 'default'
 
 
 ## --- Jade Templates
