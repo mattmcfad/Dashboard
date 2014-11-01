@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Dashboard</title>
+		<script src="assets/scripts/lib/require.js"></script>
+		<link rel="stylesheet" href="assets/css/main.css">
+	</head>
+	<body>
+		<h1>Dashboard</h1>
+		<div class="wrapper clearfix">
+			<section class="module weather">
+				<div class="module-container">
+					<h2>Weather</h2>
+					<button id="get-weather">Get Weather</button>
+					<ul id="weather-details"></ul>
+				</div>
+			</section>
+			<section class="module ttc">	
+				<div class="module-container">
+					<h2>TTC</h2>
+					<div class="buttons">
+						<button id="1470-48">Cedarland</button>
+						<button id="14752-48">Royal York Station</button>
+						<button id="14697-37">Islington Station</button>
+						<button id="3828-37">Islington &amp; Rathburn</button>
+					</div>
+					<article></article>
+				</div>
+			</section>
+		</div>
+		<script>
+			requirejs.config({
+				baseUrl: "assets/scripts",
+				paths: {
+					jquery: "lib/jquery"
+				}
+			});
+			//load files via requirejs
+			requirejs(["common"], function(){
+				requirejs(["app/main"]);
+			});
+		</script>
+	</body>
+</html>

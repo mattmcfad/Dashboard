@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///Users/matt/Dev/WebDev/dashboard/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<title>Dashboard</title>
+		<script src="file:///Users/matt/Dev/WebDev/dashboard/scripts/lib/require.js"></script>
+	<script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common" src="file:///Users/matt/Dev/WebDev/dashboard/scripts/common.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="file:///Users/matt/Dev/WebDev/dashboard/scripts/lib/jquery.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="global/utils" src="file:///Users/matt/Dev/WebDev/dashboard/scripts/global/utils.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="app/main" src="file:///Users/matt/Dev/WebDev/dashboard/scripts/app/main.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="app/weather" src="file:///Users/matt/Dev/WebDev/dashboard/scripts/app/weather.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="app/ttc" src="file:///Users/matt/Dev/WebDev/dashboard/scripts/app/ttc.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="app/apiKeys" src="file:///Users/matt/Dev/WebDev/dashboard/scripts/app/apiKeys.js"></script></head>
+	<body>
+		<h1>Dashboard</h1>
+		<section class="weather">
+			<h2>Weather</h2>
+			<button id="get-weather">Get Weather</button>
+			<ul id="weather-details"><li><h4>Saturday</h4>Windy with snow showers in the morning. High near 5C. Winds N at 30 to 50 km/h. Chance of snow 40%.</li><li><h4>Saturday Night</h4>A few clouds from time to time. Low -1C. Winds N at 15 to 30 km/h.</li><li><h4>Sunday</h4>Mainly sunny. High 7C. Winds NW at 15 to 25 km/h.</li><li><h4>Sunday Night</h4>A mostly clear sky. Low 2C. Winds WNW at 15 to 25 km/h.</li><li><h4>Monday</h4>Generally sunny despite a few afternoon clouds. High near 10C. Winds SW at 10 to 15 km/h.</li><li><h4>Monday Night</h4>A few clouds from time to time. Low 7C. Winds SW at 15 to 25 km/h.</li><li><h4>Tuesday</h4>Cloudy with occasional showers for the afternoon. High 12C. Winds SW at 25 to 40 km/h. Chance of rain 50%.</li><li><h4>Tuesday Night</h4>Rain showers in the evening becoming more intermittent overnight. Low 7C. Winds WSW at 15 to 30 km/h. Chance of rain 60%.</li></ul>
+		</section>
+		<section class="ttc">
+			<h2>TTC</h2>
+			<div class="buttons">
+				<button id="1470-48">Cedarland</button>
+				<button id="14752-48">Royal York Station</button>
+				<button id="14697-37">Islington Station</button>
+				<button id="3828-37">Islington &amp; Rathburn</button>
+			</div>
+			<article><h3>Islington Ave At Rathburn Rd South Side</h3><h4>37-Islington</h4><p>0 mins 55 seconds</p><p>15 mins 914 seconds</p><p>44 mins 2644 seconds</p></article>
+		</section>
+
+		<script>
+			//require conf
+			requirejs.config({
+				baseUrl: "scripts",
+				paths: {
+					jquery: "lib/jquery"
+				}
+			});
+			//load files via requirejs
+			requirejs(["common"], function(){
+				requirejs(["app/main"]);
+			});
+		</script>
+	
+</body></html>
