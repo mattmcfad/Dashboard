@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Dashboard</title>
+		<script src="scripts/lib/require.js"></script>
 	</head>
 	<body>
 		<h1>Dashboard</h1>
@@ -21,11 +22,19 @@
 			</div>
 			<article></article>
 		</section>
-		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="apiKeys.js"></script>
-		<script src="weather.js"></script>
-		<script src="ttc.js"></script>
-		<script src="app.js"></script>
+
+		<script>
+			//require conf
+			requirejs.config({
+				baseUrl: "scripts",
+				paths: {
+					jquery: "lib/jquery"
+				}
+			});
+			//load files via requirejs
+			requirejs(["common"], function(){
+				requirejs(["app/main"]);
+			});
+		</script>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-var ttc = {
+define( function() {
 
 	// Route List
 	// http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc
@@ -21,12 +21,14 @@ var ttc = {
 		// 14697 North - ISLINGTON STATION
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
-	parseXml: function(xmlData){
+	var ttcCtrl = {};	
+
+	 function parseXml (xmlData) {
 
 		var article = $(".ttc > article"),
 		 	obj = {};
 
-		$(xmlData).find("predictions").each(function(){
+		$(xmlData).find("predictions").each(function() {
 
 			var that = $(this),
 				routeTitle = that.attr("routeTitle"),
@@ -36,7 +38,7 @@ var ttc = {
 			obj.route = routeTitle;
 		    obj.predictions = [];
 
-			that.find("prediction").each(function(){
+			that.find("prediction").each(function() {
 				var that = $(this),
 					prediction = {
 						minutes: that.attr("minutes"),
@@ -51,34 +53,47 @@ var ttc = {
 			   .append("<h4>" + obj.route + "</h4>");
 
 
-		ttc.sortTimes(obj.predictions, function(array){
+		sortTimes(obj.predictions, function(array) {
 			console.log(array);
-			for (index in array){
+			for (index in array) {
 					article.append("<p>"+ array[index].minutes + " mins " + array[index].seconds + " seconds </p>");
 			}
 		});
 
-	},
+	}
 
-	sortTimes: function(arr, callback){
-		arr = arr.sort(function(a,b){
+	function sortTimes (arr, callback) {
+		arr = arr.sort(function(a,b) {
 			return a.minutes - b.minutes;
 		});
 
 		callback(arr);
-	},
+	}
 
-	getXml: function(stopId, routeId){
+	ttcCtrl.getXml = function (stopId, routeId) {
 		$.ajax({
 			url : "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
 				+ stopId 
 				+ "&routeTag=" 
 				+ routeId,
 			dataType : "xml",
-			success : function(data){
-				ttc.parseXml(data);				
+			success : function(data) {
+				parseXml(data);				
 			}
 		});
 	}
 
-};
+	ttcCtrl.init = function (){
+		$(".buttons > button").on("click", function(e){
+			e.preventDefault();
+			var id = this.id.split("-"),
+				stopId = id[0],
+				routeId = id[1];
+
+			ttcCtrl.getXml(stopId, routeId);
+		});
+	}
+
+	return ttcCtrl;
+
+});
