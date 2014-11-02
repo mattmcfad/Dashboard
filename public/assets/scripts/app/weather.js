@@ -1,6 +1,7 @@
-define(["app/apiKeys"], function(keys) {
+define(["global/utils", "app/apiKeys"], function(utils, keys) {
+	"use strict"
 
-	weatherCtrl = {};
+	var weatherCtrl = {};
 
 	weatherCtrl.getWeather = function() {
 		var url = "http://api.wunderground.com/api/"
@@ -8,7 +9,6 @@ define(["app/apiKeys"], function(keys) {
 				+ "/forecast/q/Canada/Toronto.json";
 
 		utils.ajax(url, "jsonp", weatherCtrl.printWeather);
-
 	}
 
 	weatherCtrl.printWeather = function(data) {

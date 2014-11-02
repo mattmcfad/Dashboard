@@ -20,13 +20,14 @@
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
 
-define( function() {
+define(["global/utils"], function(utils) {
+	"use strict"
 
 	var ttcCtrl = {};
 
-	 ttcCtrl.parseXml = function (xmlData) {
-		var article = $(".ttc article"),
-		 	obj = {};
+	ttcCtrl.parseXml = function (xmlData) {
+		
+		var obj = {};
 
 		$(xmlData).find("predictions").each(function() {
 
@@ -40,28 +41,45 @@ define( function() {
 
 			that.find("prediction").each(function() {
 				var that = $(this),
+					time = convertTime(that.attr("seconds")),
 					prediction = {
-						minutes: that.attr("minutes"),
-						seconds: that.attr("seconds")
+						minutes: time.minutes,
+						seconds: time.seconds
 					};
 
 				obj.predictions.push(prediction);
 			});
 		});
 
+		displayTime(obj);
+	}
+
+
+
+	function displayTime(obj) {
+		var article = $(".ttc article");
+
 		article.html("<h3>" + obj.stop + "</h3>")
 			   .append("<h4>" + obj.route + "</h4>");
 
 
 		sortTimes(obj.predictions, function(array) {
-			for (index in array) {
+
+			for (var i = 0; i < array.length; i++) {
 				article.append("<p>"
-							 + array[index].minutes + " mins "
-							 + array[index].seconds + " seconds"
+							 + array[i].minutes + " mins "
+							 + array[i].seconds + " seconds"
 							 + "</p>");
 			}
 		});
 
+	}
+
+	function convertTime(totSeconds){
+		var minutes = ~~(totSeconds / 60),
+			seconds = totSeconds - (minutes * 60);
+
+		return { minutes: minutes, seconds: seconds};
 	}
 
 	function sortTimes (arr, callback) {

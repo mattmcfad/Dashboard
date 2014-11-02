@@ -1,7 +1,8 @@
 define(function() {
-	utils = {};
+	"use strict"
+	
+	var utils = {};
 
-	console.log("utils loaded");
 
 	utils.ajax = function(url, type, callback) {
 
