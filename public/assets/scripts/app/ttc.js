@@ -43,6 +43,7 @@ define(["global/utils"], function(utils) {
 				var that = $(this),
 					time = convertTime(that.attr("seconds")),
 					prediction = {
+						date: utils.getPredictionTime(that.attr("epochTime")),
 						minutes: time.minutes,
 						seconds: time.seconds
 					};
@@ -55,7 +56,6 @@ define(["global/utils"], function(utils) {
 	}
 
 
-
 	function displayTime(obj) {
 		var article = $(".ttc article");
 
@@ -66,7 +66,9 @@ define(["global/utils"], function(utils) {
 		sortTimes(obj.predictions, function(array) {
 
 			for (var i = 0; i < array.length; i++) {
-				article.append("<p>"
+				article.append("<p><strong>"
+							 + array[i].date 
+							 + "</strong> - "
 							 + array[i].minutes + " mins "
 							 + array[i].seconds + " seconds"
 							 + "</p>");
