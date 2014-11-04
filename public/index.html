@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Dashboard</title>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="assets/scripts/lib/require.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css">
 	</head>
@@ -13,7 +14,9 @@
 			<section class="module weather">
 				<div class="module-container">
 					<h2>Weather</h2>
-					<button id="get-weather">Get Weather</button>
+					<button id="get-hourly">Get Hourly</button>
+					<button id="get-weather">Get 7 day forecast</button>
+					<div id="graph"></div>
 					<ul id="weather-details"></ul>
 				</div>
 			</section>
@@ -30,6 +33,7 @@
 				</div>
 			</section>
 		</div>
+		
 		<script>
 			requirejs.config({
 				baseUrl: "assets/scripts",

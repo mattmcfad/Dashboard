@@ -67,11 +67,11 @@ define(["global/utils"], function(utils) {
 
 			for (var i = 0; i < array.length; i++) {
 				article.append("<p><strong>"
-							 + array[i].date 
-							 + "</strong> - "
-							 + array[i].minutes + " mins "
-							 + array[i].seconds + " seconds"
-							 + "</p>");
+									+ array[i].date 
+								+ "</strong> - "
+								+ array[i].minutes + " mins "
+								+ array[i].seconds + " seconds"
+	 						+ "</p>");
 			}
 		});
 

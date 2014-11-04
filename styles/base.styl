@@ -15,4 +15,27 @@
 			border 3px solid $red
 			border-radius 12px
 			
-		
+			#graph 
+				width 100%
+				padding 5px
+				position relative
+				
+				.cell
+					width 9.5%
+					display inline-block
+					height 10px
+					margin 10px 0
+					border 1px solid $red
+					background-color shade(green, 5%)
+					border-radius 5px 5px 0 0
+					position absolute
+					bottom 0px
+					right 0px
+					
+					.data
+						position absolute
+						bottom 0
+						
+						p
+							font-size 1.3rem
+							text-align center
