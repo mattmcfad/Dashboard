@@ -4,22 +4,13 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Dashboard</title>
-		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="assets/scripts/lib/chart.js"></script>
 		<script src="assets/scripts/lib/require.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css">
 	</head>
 	<body>
 		<div class="wrapper clearfix">
 			<h1>Dashboard</h1>
-			<section class="module weather">
-				<div class="module-container">
-					<h2>Weather</h2>
-					<button id="get-hourly">Get Hourly</button>
-					<button id="get-weather">Get 7 day forecast</button>
-					<div id="graph"></div>
-					<ul id="weather-details"></ul>
-				</div>
-			</section>
 			<section class="module ttc">	
 				<div class="module-container">
 					<h2>TTC</h2>
@@ -30,6 +21,20 @@
 						<button id="3828-37">Islington &amp; Rathburn</button>
 					</div>
 					<article></article>
+				</div>
+			</section>
+			<section class="module weather">
+				<div class="module-container clearfix">
+					<div class="controls">
+						<h2>Weather</h2>
+						<button id="get-hourly">Get Hourly</button>
+						<button id="get-weather">Get 7 day forecast</button>
+						
+					</div>
+					
+					<div class="graph-container weather-report">
+					</div>
+					<ul id="weather-details" class="weather-report"></ul>
 				</div>
 			</section>
 		</div>
