@@ -1,5 +1,6 @@
 define(["app/weather", "app/ttc"], function(weather, ttc){
-	
+	"use strict";
+
 	var obj = {};
 
 	function eventListeners(){

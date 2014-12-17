@@ -20,10 +20,12 @@
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
 
 
-define(["global/utils"], function(utils) {
-	"use strict"
+define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) {
+	"use strict";
 
 	var ttcCtrl = {};
+
+	cookieMonster.createCookie("name", "devtest", 1500);
 
 	ttcCtrl.parseXml = function (xmlData) {
 		
