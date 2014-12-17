@@ -69,11 +69,11 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 			labels: hourOfDayData,
 			series: [
 				{
-					name: 'Bruh, this ish feels like:',
+					name: 'Bruh feels like',
 					data: feelsLikeData
 				},
 				{
-					name: 'Temperature:',
+					name: 'Temperature',
 					data: temperatureData
 				}
 			]
@@ -90,11 +90,51 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 					return index % 0.5 === 0 ? value : null;
 				}
 			},
+			axisY: {
+				labelInterpolationFnc: function(value, index) {
+					// determines how many x-axis labels displayed
+					return index % 1 === 0 ? value : null;
+				}
+			},
 			fullWidth: true,
 			centerBars: true
 		};
 
-		new Chartist.Bar('.ct-chart', data, options);
+		new Chartist.Line('.ct-chart', data, options);
+
+		var easeOutQuad = function (x, t, b, c, d) {
+  return -c * (t /= d) * (t - 2) + b;
+};
+
+var $chart = $('.ct-chart');
+
+var $toolTip = $chart
+  .append('<div class="tooltip"></div>')
+  .find('.tooltip')
+  .hide();
+
+$chart.on('mouseenter', '.ct-point', function() {
+  var $point = $(this),
+    value = $point.attr('ct:value'),
+    seriesName = $point.parent().attr('ct:series-name');
+
+  $point.animate({'stroke-width': '40px'}, 300, easeOutQuad);
+  $toolTip.html(seriesName + '<br><span class="tooltip-temp">' + value + '</span>').show();
+});
+
+$chart.on('mouseleave', '.ct-point', function() {
+  var $point = $(this);
+
+  $point.animate({'stroke-width': '12px'}, 100, easeOutQuad);
+  $toolTip.hide();
+});
+
+$chart.on('mousemove', function(event) {
+  $toolTip.css({
+    left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2,
+    top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 15
+  });
+});
 	}
 
 

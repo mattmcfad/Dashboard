@@ -240,3 +240,16 @@ h1 {
     float: left;
   }
 }
+.ct-chart {
+  position: relative;
+}
+.ct-chart .tooltip {
+  position: absolute;
+  text-align: center;
+  background: #ff69b4;
+  border-radius: 50%;
+}
+.ct-chart .tooltip .tooltip-temp {
+  font-size: 22px;
+  color: #fff;
+}
