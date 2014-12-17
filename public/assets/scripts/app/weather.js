@@ -14,6 +14,14 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 		utils.ajax(url, "jsonp", weatherCtrl.printWeather);
 	}
 
+	weatherCtrl.printWeather = function(data) {
+		var list = $("#weather-details").html("");
+		$.each(data.forecast.txt_forecast.forecastday, function(index, obj) {
+			list.append("<li><h4>"+ obj.title+ "</h4><p>" + obj.fcttext_metric + "</p></li>");
+		});
+		utils.removeLoader(list);
+	}
+
 	weatherCtrl.getHourly = function() {
 		//http://api.wunderground.com/api/6dd99ff6fbbdb718/hourly/q/CA/San_Francisco.json
 		var url = baseUrl + keys.getKey("wunderground")
@@ -42,7 +50,7 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 	function graphLinePlot(hourlyForecast){
 		$("canvas").remove();
 		var graphContainer = $(".graph-container").append('<canvas id="canvas-graph" width="'+ (($(".wrapper").width() / 2) - 50) + '"></canvas>');
-
+		utils.removeLoader(graphContainer);
 		var ctx = $("#canvas-graph").get(0).getContext("2d");
 		
 		var temperatureData = [],
@@ -91,22 +99,19 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 		});
 	}
 
-	weatherCtrl.printWeather = function(data) {
-		var list = $("#weather-details").html("");
-		$.each(data.forecast.txt_forecast.forecastday, function(index, obj) {
-			list.append("<li><h4>"+ obj.title+ "</h4><p>" + obj.fcttext_metric + "</p></li>");
-		});
-	}
 
 	weatherCtrl.init = function() {
 
 		$("#get-weather").on("click", function(e) {
 			e.preventDefault();
 			weatherCtrl.getWeather();
+			utils.startLoading($(this));
 		});
+
 		$("#get-hourly").on("click", function(e) {
 			e.preventDefault();
 			weatherCtrl.getHourly();
+			utils.startLoading($(this));
 		});
 	}
 

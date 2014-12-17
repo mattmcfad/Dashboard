@@ -13,8 +13,7 @@ define(function() {
 				callback(data);
 			},
 			error : function(error) {
-				console.error(error);
-				console.log("error");
+				console.error(error, "error");
 			}
 		});
 	}
@@ -30,6 +29,14 @@ define(function() {
 
 	utils.getTime = function() {
 		return Date.now().toString()
+	}
+
+	utils.startLoading = function(element) {
+		element.parents(".module").find("h2").after("<div class='spinner'></div>");
+	}
+
+	utils.removeLoader = function(element) {
+		element.parents(".module").find(".spinner").remove();
 	}
 
 	return utils;

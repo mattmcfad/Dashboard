@@ -213,6 +213,9 @@ h1 {
   width: 100%;
   padding: 25px;
 }
+.wrapper .module h2 {
+  display: inline-block;
+}
 .wrapper .module .module-container {
   margin: 0 auto;
   padding: 10px;
@@ -227,4 +230,10 @@ h1 {
 .wrapper .module .module-container .weather-report {
   float: left;
   width: 50%;
+}
+.wrapper .spinner {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-image: url("../images/loading.gif");
 }

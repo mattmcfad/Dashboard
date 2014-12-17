@@ -55,6 +55,7 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 		});
 
 		displayTime(obj);
+		utils.removeLoader($(".ttc h2"));
 	}
 
 
@@ -109,8 +110,10 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 			e.preventDefault();
 			var id = this.id.split("-"),
 				stopId = id[0],
-				routeId = id[1];
+				routeId = id[1],
+				self = $(this);
 
+			utils.startLoading(self);
 			ttcCtrl.getXml(stopId, routeId);
 		});
 	}
