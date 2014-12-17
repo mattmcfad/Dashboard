@@ -12,3 +12,10 @@
 * Yahoo Fantasy hockey API?
 * Quote gen
 * LCBO & Beer Store hours
+
+
+## Stack
+
+* RequireJS
+* ChartistJS
+* Gulp

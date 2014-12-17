@@ -84,8 +84,8 @@ gulp.task 'clean', ->
 ## ------------------
 gulp.task 'watch', ->
 
-  gutil.log gutil.colors.magenta 'watching JS: ' + param.js_folder
-  gulp.watch param.js_folder, ['scripts']
+  # gutil.log gutil.colors.magenta 'watching JS: ' + param.js_folder
+  # gulp.watch param.js_folder, ['scripts']
   
   # gutil.log gutil.colors.magenta 'watching Jade: ' + param.templates_folder + '**/*.jade'
   # gulp.watch param.templates_folder + '**/*.jade', ['templates']

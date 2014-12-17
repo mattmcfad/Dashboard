@@ -21,7 +21,7 @@
     "url": "https://github.com/mmcfadyen91/dashboard/issues"
   },
   "jshintConfig" : "jshintrc",
-  "homepage": "https://github.com/mmcfadyen91/dashboard",
+  "homepage": "http://mmcfadyen.ca/dashboard",
   "devDependencies": {
     "coffee-script": "^1.7.0",
     "gulp": "^3.8.8",
