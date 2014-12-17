@@ -222,18 +222,21 @@ h1 {
   border: 3px solid #ff69b4;
   border-radius: 12px;
 }
-.wrapper .module .module-container .graph-container {
-  margin: 20px auto;
-  min-width: 100px;
-  height: 250px;
-}
+.wrapper .module .module-container .graph-container,
 .wrapper .module .module-container .weather-report {
   float: left;
-  width: 50%;
+  width: 100%;
 }
 .wrapper .spinner {
   display: inline-block;
   width: 32px;
   height: 32px;
   background-image: url("../images/loading.gif");
+}
+@media (min-width: 1024px) {
+  .wrapper .module,
+  .weather-report {
+    width: 50%;
+    float: left;
+  }
 }

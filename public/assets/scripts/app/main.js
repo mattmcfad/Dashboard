@@ -1,17 +1,19 @@
 define(["app/weather", "app/ttc"], function(weather, ttc){
 	"use strict";
 
-	var obj = {};
+	var app = {};
 
-	function eventListeners(){
+	app.eventListeners = function(){
 		ttc.init();
 		weather.init();
-	}
+	};
 
-	function init(){
-		eventListeners();
-	}
+	app.init = function(){
+		app.eventListeners();
+	};
 
-	init();
+	app.init();
+
+	return app;
 
 });

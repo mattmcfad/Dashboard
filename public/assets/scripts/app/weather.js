@@ -48,55 +48,51 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 	}
 
 	function graphLinePlot(hourlyForecast){
-		$("canvas").remove();
-		var graphContainer = $(".graph-container").append('<canvas id="canvas-graph" width="'+ (($(".wrapper").width() / 2) - 50) + '"></canvas>');
-		utils.removeLoader(graphContainer);
-		var ctx = $("#canvas-graph").get(0).getContext("2d");
-		
+	
+		utils.removeLoader($("#weather-graph"));
+
 		var temperatureData = [],
-			feelsLikeData = [],
-			hourOfDayData = [],
-			j = 0;
+				feelsLikeData = [],
+				hourOfDayData = [],
+				j = 0;
 
 		for (var i = 0; i < hourlyForecast.length; i+=3){
-			var time = ("" + hourlyForecast[i].time.est).split(":00")
-			temperatureData[j] = hourlyForecast[i].temp*1;
-			feelsLikeData[j] = hourlyForecast[i].feel*1;
-			hourOfDayData[j] = time[0] + "" + time[1];
-			j++;
+				var time = ("" + hourlyForecast[i].time.est).split(":00");
+				temperatureData[j] = hourlyForecast[i].temp * 1;
+				feelsLikeData[j] = hourlyForecast[i].feel * 1;
+				hourOfDayData[j] = time[0] + "" + time[1];
+				j++;
 		}
+		console.log(temperatureData, feelsLikeData, hourOfDayData);
 
 		var data = {
 			labels: hourOfDayData,
-			datasets: [
+			series: [
 				{
-					label: "Temp",
-					fillColor: "rgba(220,220,220,0.2)",
-					strokeColor: "rgba(220,220,220,1)",
-					pointColor: "rgba(220,220,220,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: temperatureData
+					name: 'Bruh, this ish feels like:',
+					data: feelsLikeData
 				},
 				{
-					label: "Feels like",
-					fillColor: "rgba(151,187,205,0.2)",
-					strokeColor: "rgba(151,187,205,1)",
-					pointColor: "rgba(151,187,205,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(151,187,205,1)",
-					data: feelsLikeData
+					name: 'Temperature:',
+					data: temperatureData
 				}
 			]
 		};
-	
-		new Chart(ctx).Line(data, {
-			scaleShowGridLines : true,
-			scaleGridLineColor : "rgba(0,0,0,.05)",
-			responsive : true
-		});
+
+		var options = {
+			high: 10,
+			low: -10,
+			axisX: {
+				labelInterpolationFnc: function(value, index) {
+					// determines how many x-axis labels displayed
+					return index % 0.5 === 0 ? value : null;
+				}
+			},
+			fullWidth: true,
+			centerBars: false
+		};
+
+		new Chartist.Bar('.ct-chart', data, options);
 	}
 
 
