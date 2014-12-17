@@ -79,9 +79,11 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 			]
 		};
 
+		var max  = Math.max.apply(Math, feelsLikeData.concat(temperatureData));
+		var min   = Math.min.apply(Math, feelsLikeData.concat(temperatureData));
 		var options = {
-			high: 10,
-			low: -10,
+			high: max, //limit to Max Min of data
+			low: min,
 			axisX: {
 				labelInterpolationFnc: function(value, index) {
 					// determines how many x-axis labels displayed
@@ -89,7 +91,7 @@ define(["global/utils", "app/apiKeys"], function(utils, keys) {
 				}
 			},
 			fullWidth: true,
-			centerBars: false
+			centerBars: true
 		};
 
 		new Chartist.Bar('.ct-chart', data, options);
