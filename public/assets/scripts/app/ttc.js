@@ -25,7 +25,7 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 
 	var ttcCtrl = {};
 
-	cookieMonster.createCookie("name", "devtest", 1500);
+	cookieMonster.createCookie("test", "devtest", 1500);
 
 	ttcCtrl.parseXml = function (xmlData) {
 		

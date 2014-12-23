@@ -3,6 +3,7 @@ define(function() {
 
 	var cookieMonster = {};
 
+
 	cookieMonster.createCookie = function(name, value, minutes) {
 		var expires = "";
 		if (minutes) {
@@ -10,8 +11,9 @@ define(function() {
 			date.setTime(date.getTime() + (minutes * 60));
 			expires = "; expires=" + date.toGMTString();
 		}
-		document.cookie = name + "=" + value + expires + "; path=/";
-		console.log("made cookie");
+		//document.cookie = name + "=" + value + expires + "; path=/";
+		document.cookie = 'cookie1=test; expires=Fri, 3 Aug 2015 20:47:11 UTC; path=/'
+		console.log("Created cookie:", document.cookie);
 	}
 
 	cookieMonster.readCookie = function(name) {
