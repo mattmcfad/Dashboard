@@ -1,3 +1,4 @@
+//	
 	// Route List
 	// http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc
 
@@ -18,14 +19,22 @@
 
 		// 14697 North - ISLINGTON STATION
 		// http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId=14697&routeTag=37
-
-
 define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) {
 	"use strict";
 
 	var ttcCtrl = {};
 
 	cookieMonster.createCookie("test", "devtest", 1500);
+
+	ttcCtrl.getXml = function (stopId, routeId) {
+
+		var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
+				+ stopId 
+				+ "&routeTag=" 
+				+ routeId;
+
+		utils.ajax(url, "xml", ttcCtrl.parseXml);
+	}
 
 	ttcCtrl.parseXml = function (xmlData) {
 		
@@ -60,7 +69,16 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 
 
 	function displayTime(obj) {
-		var article = $(".ttc article");
+
+		var article;
+
+		if (!ttcCtrl.full) {
+			article = $("#prediction-1");
+			ttcCtrl.full = true;
+		}
+		else {
+			article = $("#prediction-2");
+		}
 
 		article.html("<h3>" + obj.stop + "</h3>")
 			   .append("<h4>" + obj.route + "</h4>");
@@ -69,12 +87,13 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 		sortTimes(obj.predictions, function(array) {
 
 			for (var i = 0; i < array.length; i++) {
-				article.append("<p><strong>"
-									+ array[i].date 
-								+ "</strong> - "
-								+ array[i].minutes + " mins "
-								+ array[i].seconds + " seconds"
-	 						+ "</p>");
+				article.append(
+					"<p><strong>"
+					+ array[i].date 
+					+ "</strong> - "
+					+ array[i].minutes + " min "
+					+ array[i].seconds + " secs"
+	 				+ "</p>");
 			}
 		});
 
@@ -95,27 +114,27 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 		callback(arr);
 	}
 
-	ttcCtrl.getXml = function (stopId, routeId) {
-
-		var url = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=ttc&stopId="
-				+ stopId 
-				+ "&routeTag=" 
-				+ routeId;
-
-		utils.ajax(url, "xml", ttcCtrl.parseXml);
-	}
-
 	ttcCtrl.init = function (){
-		$(".buttons > button").on("click", function(e){
-			e.preventDefault();
-			var id = this.id.split("-"),
-				stopId = id[0],
-				routeId = id[1],
-				self = $(this);
 
-			utils.startLoading(self);
-			ttcCtrl.getXml(stopId, routeId);
-		});
+		$(".buttons > button").on("click", function(e) {
+			e.preventDefault();
+			ttcCtrl.full = false;
+
+			var id = [], 
+				route = [37, 48];
+
+			if (this.id === "work") {
+				id = [3828, 1470];
+			} else if (this.id === "home") {
+				id = [14697, 14752];
+			}
+
+			utils.startLoading($(this));
+			for (var i = 0; i < id.length; i++){
+				ttcCtrl.getXml(id[i], route[i]);
+			}
+
+		})
 	}
 
 	return ttcCtrl;
