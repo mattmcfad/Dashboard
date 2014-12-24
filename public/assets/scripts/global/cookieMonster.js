@@ -13,7 +13,6 @@ define(function() {
 		}
 		//document.cookie = name + "=" + value + expires + "; path=/";
 		document.cookie = 'cookie1=test; expires=Fri, 3 Aug 2015 20:47:11 UTC; path=/'
-		console.log("Created cookie:", document.cookie);
 	}
 
 	cookieMonster.readCookie = function(name) {

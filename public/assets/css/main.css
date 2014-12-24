@@ -239,6 +239,9 @@ h1 {
   float: left;
   width: 50%;
 }
+.ttc .predictions .prediction-container .arrival-time {
+  font-weight: bold;
+}
 @media (min-width: 1024px) {
   .wrapper .module,
   .weather-report {

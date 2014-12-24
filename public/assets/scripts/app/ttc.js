@@ -24,7 +24,7 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 
 	var ttcCtrl = {};
 
-	cookieMonster.createCookie("test", "devtest", 1500);
+	// cookieMonster.createCookie("test", "devtest", 1500);
 
 	ttcCtrl.getXml = function (stopId, routeId) {
 
@@ -54,7 +54,7 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 				var that = $(this),
 					time = convertTime(that.attr("seconds")),
 					prediction = {
-						date: utils.getPredictionTime(that.attr("epochTime")),
+						arrivalTime: utils.getPredictionTime(that.attr("epochTime")),
 						minutes: time.minutes,
 						seconds: time.seconds
 					};
@@ -88,14 +88,53 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 
 			for (var i = 0; i < array.length; i++) {
 				article.append(
-					"<p><strong>"
-					+ array[i].date 
-					+ "</strong> - "
-					+ array[i].minutes + " min "
-					+ array[i].seconds + " secs"
+					"<p><span class='arrival-time'>"
+					+ array[i].arrivalTime 
+					+ "</span> - "
+					+ "<span class='minutes'>" + array[i].minutes + "</span> min "
+					+ "<span class='seconds'>" + array[i].seconds + "</span> s"
 	 				+ "</p>");
+
 			}
+			startCountdownTimer(array, article);
 		});
+	}
+
+	function startCountdownTimer(obj, jqueryContainer) {
+		
+		var minTag =  jqueryContainer.find(".minutes");
+		var secTag =  jqueryContainer.find(".seconds");
+
+		setInterval(function() {
+
+			for (var i = 0; i < obj.length; i++){
+				var minutes = obj[i].minutes,
+					seconds = obj[i].seconds;
+
+				if (seconds === 0 && minutes !== 0){
+					seconds = 59;
+					minutes--;
+				}
+				else if (seconds !== 0){
+					seconds--;
+				}
+
+				obj[i].minutes = minutes;
+				obj[i].seconds = seconds;
+
+				minTag.eq(i).html(minutes);
+				secTag.eq(i).html(seconds);
+
+			}
+
+		}, 1000);
+	}
+
+	function storeRoute(obj) {
+
+	}
+
+	function getStoredRoutes() {
 
 	}
 
