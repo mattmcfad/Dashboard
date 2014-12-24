@@ -111,19 +111,26 @@ define(["global/utils", "global/cookieMonster"], function(utils, cookieMonster) 
 				var minutes = obj[i].minutes,
 					seconds = obj[i].seconds;
 
-				if (seconds === 0 && minutes !== 0){
-					seconds = 59;
-					minutes--;
-				}
-				else if (seconds !== 0){
-					seconds--;
-				}
+				//if (minutes !==0  && seconds !== 0) {
+					
+					if (seconds === 0 && minutes !== 0){
+						seconds = 59;
+						minutes--;
+					}
+					else if (seconds !== 0){
+						seconds--;
+					}
 
-				obj[i].minutes = minutes;
-				obj[i].seconds = seconds;
+					obj[i].minutes = minutes;
+					obj[i].seconds = seconds;
 
-				minTag.eq(i).html(minutes);
-				secTag.eq(i).html(seconds);
+					minTag.eq(i).html(minutes);
+					secTag.eq(i).html(seconds);
+
+					if (seconds === 0 && minutes === 0) {
+						minTag.eq(i).parent("p").remove();
+					}
+				//}
 
 			}
 
