@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mmcfadyen91/dashboard"
+    "url": "https://github.com/mattmcfad/dashboard"
   },
   "keywords": [
     "gulp",
@@ -18,7 +18,7 @@
   "author": "@mattmcfad",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mmcfadyen91/dashboard/issues"
+    "url": "https://github.com/mattmcfad/dashboard/issues"
   },
   "jshintConfig" : "jshintrc",
   "homepage": "http://mmcfadyen.ca/dashboard",
